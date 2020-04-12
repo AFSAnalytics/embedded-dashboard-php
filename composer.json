@@ -2,6 +2,7 @@
     "name": "afsanalytics/dashboard",
     "description": "AFS Analytics embedded dashboard",
     "type": "project",
+    "license": "MIT",
     "authors": [
         {
             "name": "AFSAnalytics Dev Team",
