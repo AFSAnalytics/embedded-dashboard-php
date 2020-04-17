@@ -20,7 +20,9 @@ class Controller {
             $ajax_url_,
             $access_key_,
             $ecom_level_,
-            $parent_selector_ = 'body'
+            $parent_selector_ = 'body',
+            $theme_ = null,
+            $start_panel_id_ = null
 
     ;
 
@@ -62,13 +64,23 @@ class Controller {
         return $this;
     }
 
+    public function setParentSelector($sel = null) {
+        $this->parent_selector_ = $sel ? $sel : 'body';
+        return $this;
+    }
+
     public function setTemplate($template) {
         $this->template_ = $template;
         return $this;
     }
 
-    public function setParentSelector($sel = null) {
-        $this->parent_selector_ = $sel ? $sel : 'body';
+    public function setTheme($theme) {
+        $this->theme_ = $theme;
+        return $this;
+    }
+
+    public function setStartPanel($panel_id) {
+        $this->start_panel_id_ = $panel_id;
         return $this;
     }
 
@@ -79,12 +91,11 @@ class Controller {
             $this->template_ = 'ecom';
             $this->ecom_level_ = 'advanced';
         } else {
-
             $this->template_ = 'ecom';
             $this->ecom_level_ = 'basic';
         }
 
-        $this->currency_ = cfg['currency'] ?? 'USD';
+        $this->currency_ = $cfg['currency'] ?? 'USD';
         return $this;
     }
 
@@ -165,6 +176,9 @@ class Controller {
         ];
 
 
+        if ($this->start_panel_id_) {
+            $cfg['dashboard']['container']['start_panel'] = $this->start_panel_id_;
+        }
 
         if ($this->access_key_) {
             $cfg['access_key'] = $this->access_key_;
@@ -174,14 +188,14 @@ class Controller {
             $cfg['ecom'] = [
                 'enabled' => 1,
                 'level' => $this->ecom_level_,
-                'currency' => $this->currenc_
+                'currency' => $this->currency_
             ];
 
-            $cfg['dashboard'] = [
-                'container' => [
-                    'template' => 'ecom',
-                ]
-            ];
+            $cfg['dashboard']['container']['template'] = 'ecom';
+        }
+
+        if ($this->theme_) {
+            $cfg['dashboard']['forced_theme'] = $this->theme_;
         }
 
 
