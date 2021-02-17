@@ -22,7 +22,8 @@ class Controller {
             $ecom_level_,
             $parent_selector_ = 'body',
             $theme_ = null,
-            $start_panel_id_ = null
+            $start_panel_id_ = null,
+            $default_avatar_ = null
 
     ;
 
@@ -105,6 +106,11 @@ class Controller {
         return $this;
     }
 
+    public function setDefaultAvatar($url) {
+        $this->default_avatar_ = $url;
+        return $this;
+    }
+
     //
 
 
@@ -157,7 +163,7 @@ class Controller {
     protected function renderJSConfig() {
 
         $cfg = [
-            'host' => 'php pluggin',
+            'host' => 'php plugin',
             'type' => 'plugin',
             'lng' => $this->lng_,
             'account_id' => $this->account_id_,
@@ -198,6 +204,10 @@ class Controller {
             $cfg['dashboard']['forced_theme'] = $this->theme_;
         }
 
+        if ($this->default_avatar_) {
+            $cfg['avatar'] = $cfg['avatar'] ?? [];
+            $cfg['avatar']['default'] = $this->default_avatar_;
+        }
 
         return $cfg;
     }

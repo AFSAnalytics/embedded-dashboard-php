@@ -54,7 +54,7 @@ $db->setParentSelector('#my_custom_id')
 ### Running the Ajax Server
 
 In addition to inserting the code displaying the dashboard,
-you need to run the ajax server responsable for calling 
+you need to run the ajax server responsible for calling 
 AFS Analytics REST API.
 
 This can be done with just two lines of codes:
